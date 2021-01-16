@@ -84,7 +84,6 @@ fn get_year() -> String {
 
 fn write_to_file(file_path: &str, to_write: &str) {
     match !fs::metadata(file_path).is_ok() {
-        true => write_to_file(file_path, to_write),
         false => {
             let file_path: String = Input::with_theme(&ColorfulTheme::default())
                 .with_prompt("LICENSE exists, enter a new name or it will be overriden!")
@@ -93,5 +92,6 @@ fn write_to_file(file_path: &str, to_write: &str) {
 
             fs::write(file_path, to_write).expect("unable to write to file")
         }
+        true => fs::write(file_path, to_write).expect("unable to write to file"),
     }
 }
