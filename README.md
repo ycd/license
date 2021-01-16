@@ -37,10 +37,10 @@ To build, download the source code and run:
 
 ### TODO
 
-- [] Add tests
-- [] Reduce binary size, which is 6 MB at the moment.
-- [] Package it for arch linux
-- [] Distribute the pre-compiled executable binary for different targets such as 64-bit Windows, macOS, and Linux.
+* [ ] Add tests
+* [ ] Reduce binary size, which is 6 MB at the moment.
+* [ ] Package it for arch linux
+* [ ] Distribute the pre-compiled executable binary for different targets such as 64-bit Windows, macOS, and Linux.
 
 
 ## Licence
