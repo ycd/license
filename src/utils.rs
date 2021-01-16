@@ -1,5 +1,7 @@
+use dialoguer::console::Style;
 use dialoguer::{theme::ColorfulTheme, Input, Select};
 use licenses::CompleteLicense;
+use std::io::Write;
 use std::{fs, process::Command};
 
 use crate::licenses;
@@ -26,7 +28,23 @@ pub fn logic(license: &CompleteLicense, interactive: bool) {
         .replace("<year>", &year)
         .replace("<name of author>", &name);
 
-    write_to_file("LICENSE", &body);
+    match write_to_file("LICENSE", &body) {
+        Ok(_) => println!(
+            "{}",
+            Style::new()
+                .for_stderr()
+                .green()
+                .apply_to("✔ license created successfully!")
+        ),
+        Err(err) => println!(
+            "{} {}",
+            Style::new()
+                .for_stderr()
+                .red()
+                .apply_to("✘ an error occured"),
+            err
+        ),
+    };
 }
 
 /// Looks for a user name
@@ -82,8 +100,8 @@ fn get_year() -> String {
     year
 }
 
-fn write_to_file(file_path: &str, to_write: &str) {
-    match !fs::metadata(file_path).is_ok() {
+fn write_to_file(file_path: &str, to_write: &str) -> Result<(), std::io::Error> {
+    let result = match !fs::metadata(file_path).is_ok() {
         false => {
             let file_path: String = Input::with_theme(&ColorfulTheme::default())
                 .with_prompt("LICENSE exists, enter a new name or it will be overriden!")
@@ -91,8 +109,9 @@ fn write_to_file(file_path: &str, to_write: &str) {
                 .interact_text()
                 .unwrap();
 
-            fs::write(file_path, to_write).expect("unable to write to file")
+            fs::write(file_path, to_write)
         }
-        true => fs::write(file_path, to_write).expect("unable to write to file"),
-    }
+        true => fs::write(file_path, to_write),
+    };
+    result
 }
