@@ -3,7 +3,7 @@
 
 [license](https://github.com/ycd/license/) is a command-line license generator.
 
-![](assets/license.gif)
+![](assets/license_.gif)
 
 </div>
 
