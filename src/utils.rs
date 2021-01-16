@@ -87,6 +87,7 @@ fn write_to_file(file_path: &str, to_write: &str) {
         false => {
             let file_path: String = Input::with_theme(&ColorfulTheme::default())
                 .with_prompt("LICENSE exists, enter a new name or it will be overriden!")
+                .default(file_path.to_string())
                 .interact_text()
                 .unwrap();
 
