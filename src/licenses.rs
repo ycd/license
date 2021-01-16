@@ -53,7 +53,7 @@ pub struct CompleteLicense {
 }
 
 impl CompleteLicense {
-    pub fn from(url: &String) -> Self {
+    pub fn from(url: &String) -> CompleteLicense {
         let license: CompleteLicense = match ureq::get(&url).call() {
             Ok(response) => response.into_json().unwrap(),
             Err(error) => panic!("Unable to fetch license: {:?}", error),

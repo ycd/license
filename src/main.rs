@@ -1,23 +1,16 @@
-mod config;
-use dialoguer::{theme::ColorfulTheme, Select};
+mod licenses;
+mod utils;
 
 fn main() {
-    let licenses = &config::Licenses::new();
-
-    let license = make_selection(&licenses.get_names());
-    // TODO ask for year, with default current year
-    // TODO ask for name, default name --git config user.name
-
-    println!("{}", license)
+    app()
 }
 
-fn make_selection(selections: &Vec<String>) -> String {
-    let selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt("Choose a license")
-        .default(0)
-        .items(&selections[..])
-        .interact()
-        .unwrap();
+fn app() {
+    let licenses = licenses::Licenses::new();
 
-    selections[selection].clone()
+    let license_name = utils::make_selection(&licenses.get_names());
+
+    let license = &licenses.get_license_from_name(&license_name);
+
+    utils::logic(license, true);
 }
