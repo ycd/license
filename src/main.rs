@@ -12,5 +12,5 @@ fn app() {
 
     let license = &licenses.get_license_from_name(&license_name);
 
-    utils::logic(license, true);
+    utils::logic(license);
 }

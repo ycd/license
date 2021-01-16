@@ -1,7 +1,6 @@
 use dialoguer::console::Style;
 use dialoguer::{theme::ColorfulTheme, Input, Select};
 use licenses::CompleteLicense;
-use std::io::Write;
 use std::{fs, process::Command};
 
 use crate::licenses;
@@ -17,7 +16,7 @@ pub fn make_selection(selections: &Vec<String>) -> String {
     selections[selection].clone()
 }
 
-pub fn logic(license: &CompleteLicense, interactive: bool) {
+pub fn logic(license: &CompleteLicense) {
     let name = get_name();
     let year = get_year();
 
